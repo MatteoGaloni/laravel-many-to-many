@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('project_technology', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('project_id');
+            $table->foreignId('project_id')->references('id')->on('projects');
+
+            $table->unsignedBigInteger('technology_id');
+            $table->foreignId('technology_id')->references('id')->on('technologies');
+
+
             $table->timestamps();
         });
     }
