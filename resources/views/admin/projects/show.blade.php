@@ -9,6 +9,12 @@
                     <h5 class="card-title">{{ $project->title }}</h5>
                     <p class="card-text">{{ $project->description }}</p>
                     <h5>Tipo: {{ $project->type->name }}</h5>
+                    <h5>Categoria:</h5>
+                    <ul>
+                        @foreach ($project->technologies as $technology)
+                            <li>{{ $technology->name }}</li>
+                        @endforeach
+                    </ul>
                     <a class="btn btn-primary my-4" href="{{ route('admin.projects.edit', $project) }}">Edit Project</a>
                     <form id="form" action="{{ route('admin.projects.destroy', $project) }}" method="POST">
                         @csrf

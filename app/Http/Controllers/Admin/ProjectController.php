@@ -47,10 +47,14 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+
         $data = $request->validated();
+
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
+
+        $newProject->technologies()->sync($data['technologies']);
 
         return to_route("admin.projects.show", $newProject);
     }
@@ -63,6 +67,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
         return view('admin.projects.show', compact('project'));
     }
 
