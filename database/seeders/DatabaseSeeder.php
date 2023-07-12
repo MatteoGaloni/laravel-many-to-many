@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         // inserisci prima il tipo
         $this->call([
             TypeSeeder::class,
-            ProjectSeeder::class
+            ProjectSeeder::class,
+            TechnologySeeder::class,
         ]);
     }
 }
