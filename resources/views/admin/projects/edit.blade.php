@@ -13,15 +13,12 @@
     <form action="{{ route('admin.projects.update', $project) }}" method="POST" class="needs-validation">
         @csrf
         @method('PUT')
-
-
-
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" id="title">
         </div>
 
-        {{-- <div class="form-group">
+        <div class="form-group">
             <label for="type_id">Categoria</label>
             <select class="form-select" name="type_id">
                 <option selected disabled>Choose project type</option>
@@ -29,7 +26,17 @@
                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                 @endforeach
             </select>
-        </div> --}}
+        </div>
+
+        @foreach ($technologies as $i => $technology)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}"
+                    id="technologies{{ $i }}">
+                <label class="form-check-label" for="technologies{{ $i }}">
+                    {{ $technology->name }}
+                </label>
+            </div>
+        @endforeach
 
         <div class="form-group">
             <label for="description">Description</label>
