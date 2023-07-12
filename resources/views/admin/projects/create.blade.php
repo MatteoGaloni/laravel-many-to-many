@@ -29,6 +29,16 @@
             </select>
         </div>
 
+        @foreach ($technologies as $technology)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ $technology->name }}" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    {{ $technology->name }}
+                </label>
+            </div>
+        @endforeach
+
+
         <div class="form-group">
             <label for="description">Description</label>
             <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
