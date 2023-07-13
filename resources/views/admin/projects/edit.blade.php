@@ -15,7 +15,7 @@
         @method('PUT')
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" id="title">
+            <input type="text" class="form-control" name="title" id="title" value='{{ $project->title }}'>
         </div>
 
         <div class="form-group">
