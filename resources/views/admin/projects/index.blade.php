@@ -14,6 +14,14 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $project->title }}</h5>
                         <p class="card-text">{{ $project->description }}</p>
+                        <h5>Tipo:{{ $project->type->name }}</h5>
+                        <h5>Tecnologia:</h5>
+                        <ul>
+                            @foreach ($project->technologies as $technology)
+                                <li>{{ $technology->name }}</li>
+                            @endforeach
+                        </ul>
+
                         <a href='{{ route('admin.projects.show', $project) }}' class="btn btn-primary">Show Project</a>
                     </div>
                 </div>
