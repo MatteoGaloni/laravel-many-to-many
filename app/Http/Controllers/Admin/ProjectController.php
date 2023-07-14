@@ -50,7 +50,9 @@ class ProjectController extends Controller
     {
 
         $data = $request->validated();
-        $data['img'] = Storage::put('uploads', $request->file('img'));
+        if ($request->hasFile('img')) {
+            $data['img'] = Storage::put('uploads', $request->file('img'));
+        }
 
         $newProject = new Project();
         $newProject->fill($data);
@@ -100,6 +102,9 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $data = $request->validated();
+        if ($request->hasFile('img')) {
+            $data['img'] = Storage::put('uploads', $request->file('img'));
+        }
         $project->fill($data);
 
         $project->update();

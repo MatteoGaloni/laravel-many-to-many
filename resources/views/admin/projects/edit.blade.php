@@ -10,7 +10,8 @@
             @endforeach
         </div>
     @endif
-    <form action="{{ route('admin.projects.update', $project) }}" method="POST" class="needs-validation">
+    <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data"
+        class="needs-validation">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -20,11 +21,15 @@
         </div>
 
         <div class="form-group">
-            <label for="type_id">Categoria</label>
+            <label for="type_id">Tipi</label>
             <select class="form-select" name="type_id">
                 <option disabled>Choose project type</option>
                 @foreach ($types as $type)
-                    <option @selected($type->id == $project->type->id) value="{{ $type->id }}">{{ $type->name }}</option>
+                    @if ($project->type != null)
+                        <option @selected($type->id == $project->type->id) value="{{ $type->id }}">{{ $type->name }}</option>
+                    @else
+                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -45,7 +50,7 @@
         </div>
         <div class="form-group">
             <label for="img">URL IMG</label>
-            <input type="text" class="form-control" name="img" id="img" placeholder="Password">
+            <input type="file" class="form-control" name="img" id="img">
         </div>
 
         <button type="submit" class="btn btn-primary my-4">Submit</button>

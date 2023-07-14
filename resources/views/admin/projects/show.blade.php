@@ -4,9 +4,12 @@
     <div class="container-fluid mt-4">
         <div class="row justify-content-center">
             <div class="card p-0 mb-4" style="width: 36rem;">
-                <img class="card-img-top"
-                    src="{{ $project->img ? asset('storage/' . $project->img) : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg' }}"
-                    {{-- src="{{ $project->img ? $project->img : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg' }}" --}} alt="{{ $project->title }}">
+                @if (str_contains($project->img, 'http'))
+                    <img class="card-img-top" src="{{ $project->img }}" alt="{{ $project->title }}">
+                @else
+                    <img class="card-img-top"
+                        src="{{ $project->img ? asset('storage/' . $project->img) : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg' }}">
+                @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $project->title }}</h5>
                     <p class="card-text">{{ $project->description }}</p>
