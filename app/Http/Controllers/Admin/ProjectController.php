@@ -9,6 +9,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -49,13 +50,17 @@ class ProjectController extends Controller
     {
 
         $data = $request->validated();
+        $data['img'] = Storage::put('uploads', $request->file('img'));
 
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
 
-        $newProject->technologies()->sync($data['technologies']);
-
+        if (array_key_exists('technologies', $data)) {
+            $newProject->technologies()->sync($data['technologies']);
+        } else {
+            $newProject->technologies()->detach();
+        }
         return to_route("admin.projects.show", $newProject);
     }
 
@@ -95,13 +100,14 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $data = $request->validated();
-
         $project->fill($data);
 
         $project->update();
-
-        $project->technologies()->sync($data['technologies']);
-
+        if (array_key_exists('technologies', $data)) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
 
         return to_route("admin.projects.show", compact('project'));
     }
@@ -114,6 +120,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->detach();
         $project->delete();
         return to_route("admin.projects.index");
     }

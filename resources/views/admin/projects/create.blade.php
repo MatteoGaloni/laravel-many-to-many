@@ -3,7 +3,7 @@
 @section('content')
     <h1>Create Project</h1>
     @if ($errors->any())
-        <div class="alert">
+        <div class="alert-danger alert">
             @foreach ($errors->all() as $error)
                 <div>{{ $error }}</div>
             @endforeach
@@ -11,12 +11,12 @@
     @endif
 
 
-    <form action="{{ route('admin.projects.store') }}" method="POST" class="needs-validation">
+    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation">
         @csrf
 
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" id="title">
+            <input type="text" name="title" value="{{ old('title') }}" class="form-control" id="title">
         </div>
 
         <div class="form-group">
@@ -44,9 +44,13 @@
             <label for="description">Description</label>
             <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="img">URL IMG</label>
             <input type="text" name="img" class="form-control" id="img" placeholder="Password">
+        </div> --}}
+        <div class="form-group">
+            <label for="img">Inserisci un file</label>
+            <input type="file" name="img" class="form-control" id="img">
         </div>
 
         <button type="submit" class="btn btn-primary my-4">Submit</button>

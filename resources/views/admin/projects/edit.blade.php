@@ -4,7 +4,7 @@
 @section('content')
     <h1>EDIT PROJECT</h1>
     @if ($errors->any())
-        <div class="alert">
+        <div class="alert-danger alert">
             @foreach ($errors->all() as $error)
                 <div>{{ $error }}</div>
             @endforeach
@@ -15,15 +15,16 @@
         @method('PUT')
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" id="title" value='{{ $project->title }}'>
+            <input type="text" class="form-control" name="title" id="title"
+                value='{{ old('title') ? old('title') : $project->title }}'>
         </div>
 
         <div class="form-group">
             <label for="type_id">Categoria</label>
             <select class="form-select" name="type_id">
-                <option selected disabled>Choose project type</option>
+                <option disabled>Choose project type</option>
                 @foreach ($types as $type)
-                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    <option @selected($type->id == $project->type->id) value="{{ $type->id }}">{{ $type->name }}</option>
                 @endforeach
             </select>
         </div>
