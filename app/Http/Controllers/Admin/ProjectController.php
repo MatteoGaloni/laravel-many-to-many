@@ -49,12 +49,10 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-
         $data = $request->validated();
         if ($request->hasFile('img')) {
             $data['img'] = Storage::put('uploads', $request->file('img'));
         }
-
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();

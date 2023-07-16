@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\TechnologyController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.vue');
 });
 
 Route::middleware(['auth'])
