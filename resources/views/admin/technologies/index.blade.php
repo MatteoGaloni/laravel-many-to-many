@@ -8,13 +8,13 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $technology->name }}</h5>
                     </div>
+                    <form id="form" action="{{ route('admin.technologies.destroy', $technology) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-primary">Rimuovi</button>
+                    </form>
                 </div>
             @endforeach
-            {{-- <form method="POST" action="{{ route('admin.technologies.destroy'), $technology }}">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-primary">Rimuovi</button>
-            </form> --}}
         </div>
     </div>
 @endsection
